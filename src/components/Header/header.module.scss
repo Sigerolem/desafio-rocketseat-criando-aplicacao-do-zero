@@ -1,5 +1,17 @@
 .header {
+  width: 100vw;
+  height: 5.5625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    display: inline-block;
+    flex: 1;
+    max-width: 720px;
+  }
+
   img {
-    height: 20px;
+    height: 1.5625rem;
   }
 }
