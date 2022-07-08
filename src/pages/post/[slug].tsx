@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
 import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
@@ -57,6 +58,9 @@ export default function Post({ post }: PostProps): JSX.Element {
     <p>Carregando...</p>
   ) : (
     <>
+      <Head>
+        <title>{`spacetraveling: ${post.data.title}`}</title>
+      </Head>
       <Header />
       {data.banner.url && (
         <img className={styles.banner} src={data.banner.url} alt="banner" />
