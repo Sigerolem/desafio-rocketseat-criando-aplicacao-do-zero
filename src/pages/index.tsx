@@ -4,6 +4,8 @@ import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import Link from 'next/link';
 import { useState } from 'react';
+import { FiCalendar, FiUser } from 'react-icons/fi';
+import Head from 'next/head';
 import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
@@ -42,41 +44,54 @@ export default function Home(props: HomeProps): JSX.Element {
   }
 
   return (
-    <main>
-      {posts.map(post => (
-        <Link key={post.uid} href={`/post/${post.uid}`}>
-          <div>
-            <h1>{post.data.title}</h1>
-            <p>{post.data.subtitle}</p>
-            <div>
-              <span>
-                {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
-                  locale: ptBR,
-                })}
-              </span>
-              <span>{post.data.author}</span>
-            </div>
-          </div>
-        </Link>
-      ))}
+    <>
+      <Head>
+        <title> Home | Spacetraveling</title>
+      </Head>
+      <main className={styles.container}>
+        <img src="/images/logo.svg" alt="logo" />
+        {posts.map(post => (
+          <Link key={post.uid} href={`/post/${post.uid}`}>
+            <a>
+              <h1>{post.data.title}</h1>
+              <p>{post.data.subtitle}</p>
+              <div className={commonStyles.postInfoContainer}>
+                <FiCalendar />
+                <span>
+                  {format(
+                    new Date(post.first_publication_date),
+                    'dd MMM yyyy',
+                    {
+                      locale: ptBR,
+                    }
+                  )}
+                </span>
+                <FiUser />
+                <span>{post.data.author}</span>
+              </div>
+            </a>
+          </Link>
+        ))}
 
-      {nextPage !== null && (
-        <button
-          onClick={async () => {
-            await loadMorePosts();
-          }}
-          type="button"
-        >
-          Carregar mais posts
-        </button>
-      )}
-    </main>
+        {nextPage !== null && (
+          <button
+            className={styles.loadMorePostsButton}
+            onClick={async () => {
+              await loadMorePosts();
+            }}
+            type="button"
+          >
+            Carregar mais posts
+          </button>
+        )}
+      </main>
+    </>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient({});
-  const postsResponse = await prismic.getByType('posts', { pageSize: 1 });
+  const postsResponse = await prismic.getByType('posts', { pageSize: 2 });
 
   return {
     props: {
