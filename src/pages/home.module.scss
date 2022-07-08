@@ -1,1 +1,43 @@
-// TODO
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+
+  img {
+    margin: 5rem 0;
+    width: 17.5rem;
+  }
+
+  p {
+    display: inline-block;
+    margin: 0.5rem 0;
+    font-size: 1.125rem;
+  }
+  
+  div {
+    margin: 1rem 0 3rem;
+    display: flex;
+  }
+  
+  svg {
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-right: 0.5rem;
+  }
+  
+  span {
+    margin-right: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+  }
+
+  button {
+    color: var(--highlight);
+    background: none;
+    border: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
