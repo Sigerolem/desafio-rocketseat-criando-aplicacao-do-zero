@@ -3,6 +3,8 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
+import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
+import Header from '../../components/Header';
 
 import { getPrismicClient } from '../../services/prismic';
 
@@ -54,17 +56,23 @@ export default function Post({ post }: PostProps): JSX.Element {
   return isFallback ? (
     <p>Carregando...</p>
   ) : (
-    <main>
-      <div>
-        <img src={data.banner.url} alt="banner" />
+    <>
+      <Header />
+      {data.banner.url && (
+        <img className={styles.banner} src={data.banner.url} alt="banner" />
+      )}
+      <main className={styles.container}>
         <h1>{data.title}</h1>
-        <div>
+        <div className={commonStyles.postInfoContainer}>
+          <FiCalendar />
           <span>
             {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
               locale: ptBR,
             })}
           </span>
+          <FiUser />
           <span>{data.author}</span>
+          <FiClock />
           <span>{minutesForReading} min</span>
         </div>
         <div>
@@ -81,8 +89,8 @@ export default function Post({ post }: PostProps): JSX.Element {
             </div>
           ))}
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
 
