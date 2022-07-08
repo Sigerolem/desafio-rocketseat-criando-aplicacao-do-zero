@@ -24,6 +24,10 @@
   --info: #BBBBBB;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--body);
